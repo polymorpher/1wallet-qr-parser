@@ -2,7 +2,9 @@
 
 1wallet: https://github.com/polymorpher/one-wallet
 
-This 1wallet tool helps you convert (multiple) bundled QR code exported from Google Authenticator, to individual QR code that can be uploaded to 1wallet Restore page. Accounts unrelated to 1wallet are automatically ignored.
+This 1wallet tool helps you convert (multiple) bundled QR code exported from Google Authenticator to individual QR code that can be uploaded to 1wallet Restore page. Accounts unrelated to 1wallet are automatically ignored.
+
+By default, Google Authenticator select all accounts when you want to export the accounts as QR code images. For people with a large number of accounts, unselecting accounts unrelated 1wallet becomes very tedious. This tool is designed for those people to help them "unbundle" the QR code images into individual images, name the image files by account names, so that the user may select the specific 1wallets they want to restore on another device.
 
 ### Usage
 
