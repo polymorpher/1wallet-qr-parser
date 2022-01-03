@@ -1,0 +1,25 @@
+{
+  "name": "1wallet-qr-parser",
+  "version": "0.15.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "pb": "pbjs -t static-module -o ./proto/oauthMigration.js ./proto/oauth_migration.proto",
+    "start": "node src/index.js",
+    "lint": "eslint ./src",
+    "lint-fix": "eslint ./src --fix"
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "protobufjs": "^6.11.2",
+    "qrcode": "^1.5.0",
+    "sharp": "^0.29.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0"
+  }
+}
