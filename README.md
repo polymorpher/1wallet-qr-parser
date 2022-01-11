@@ -12,8 +12,8 @@ After installing dependencies (`yarn install`)
 
 1. Drop one or more QR code files into `inputs` folder.
 2. Run `yarn run start` in the root folder
-3. Copy files in your `outputs` folder to a secure location
+3. Copy files in your `outputs` and `outputs-text` folders to secure locations
 4. <b>IMPORTANT</b>: Delete your files in `inputs` folder
-5. <b>IMPORTANT</b>: After your 1wallets are restored, delete the QR code files you copied out in step 3.
+5. <b>IMPORTANT</b>: After your 1wallets are restored, delete the QR code and plaintext secret files you copied out in step 3.
 
-If hackers gain access to your QR code files, they may gain control of your 1wallet. It is very important that you delete these files properly (and empty your recycle bin!) 
+If hackers gain access to your QR code or plaintext secret files, they would be able to gain control of your 1wallet. It is very important that you delete these files properly (and empty your recycle bin!) 
