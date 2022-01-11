@@ -27,7 +27,7 @@ async function main () {
     const data = new URL(url.data).searchParams.get('data')
     const decoded = MigrationPayload.decode(Buffer.from(data, 'base64'))
     const params = decoded.otpParameters
-    const filterFunc = e => e => e.issuer === 'ONE Wallet' || e.issuer === 'Harmony' || e.issuer === '1wallet'
+    const filterFunc = e => e.issuer === 'ONE Wallet' || e.issuer === 'Harmony' || e.issuer === '1wallet'
     const filteredParams = params.filter(filterFunc)
     for (const param of params) {
       console.log(`${filterFunc(param) ? '[ACCEPTED]' : '[SKIPPED] (Not 1wallet)'} Detected [${param.issuer} (${param.name})] - secret hash: ${crypto.createHash('sha256').update(param.secret).digest('hex')}`)
