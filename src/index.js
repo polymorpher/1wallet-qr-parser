@@ -6,6 +6,7 @@ const qrcode = require('qrcode')
 const jsqr = require('jsqr')
 const path = require('path')
 const sharp = require('sharp')
+const crypto = require('crypto')
 async function main () {
   await fs.mkdir(IN_DIR, { recursive: true })
   await fs.mkdir(OUT_DIR, { recursive: true })
@@ -26,23 +27,28 @@ async function main () {
     const data = new URL(url.data).searchParams.get('data')
     const decoded = MigrationPayload.decode(Buffer.from(data, 'base64'))
     const params = decoded.otpParameters
-    const filteredParams = params.filter(e => e.issuer === 'ONE Wallet' || e.issuer === 'Harmony' || e.issuer === '1wallet')
+    const filterFunc = e => e => e.issuer === 'ONE Wallet' || e.issuer === 'Harmony' || e.issuer === '1wallet'
+    const filteredParams = params.filter(filterFunc)
+    for (const param of params) {
+      console.log(`${filterFunc(param) ? '[ACCEPTED]' : '[SKIPPED] (Not 1wallet)'} Detected [${param.issuer} (${param.name})] - secret hash: ${crypto.createHash('sha256').update(param.secret).digest('hex')}`)
+    }
     if (filteredParams.length === 0) {
-      console.log(`Skipping ${p}: no 1wallet QR code found`)
+      console.log(`Skipping ${p}: no 1wallet QR code found in all ${params.length} accounts`)
       continue
     }
-    console.log(`[${filteredParams.length}] 1wallet QR code found in ${p}`)
+    console.log(`[${filteredParams.length}] 1wallet QR code found out of ${params.length} accounts in ${p})`)
+
     const outFilenames = filteredParams.map(e => e.name.split(' -')[0].trim())
       .map(e => e.split('(')[0].trim())
       .map(e => e.replace(/ /g, '-').toLowerCase())
-    for (const [ind, params] of filteredParams.entries()) {
-      const oFilename = outFilenames[ind] + '.png'
+    for (const [ind, param] of filteredParams.entries()) {
+      const oFilename = outFilenames[ind] + '-'+ crypto.createHash('sha256').update(param.secret).digest('hex')+ '.png'
       const op = path.join(OUT_DIR, oFilename)
       const payload = MigrationPayload.create({
         otpParameters: [{
           issuer: 'Harmony',
-          secret: params.secret,
-          name: params.name,
+          secret: param.secret,
+          name: param.name,
           algorithm: MigrationPayload.Algorithm.ALGORITHM_SHA1,
           digits: MigrationPayload.DigitCount.DIGIT_COUNT_SIX,
           type: MigrationPayload.OtpType.OTP_TYPE_TOTP,
