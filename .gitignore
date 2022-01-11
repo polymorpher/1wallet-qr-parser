@@ -1,5 +1,6 @@
 /inputs/*
 /outputs/*
+/outputs-text/*
 !/inputs/.placeholder
 !/outputs/.placeholder
 
