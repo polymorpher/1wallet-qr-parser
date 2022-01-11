@@ -42,7 +42,7 @@ async function main () {
       .map(e => e.split('(')[0].trim())
       .map(e => e.replace(/ /g, '-').toLowerCase())
     for (const [ind, param] of filteredParams.entries()) {
-      const oFilename = outFilenames[ind] + '-'+ crypto.createHash('sha256').update(param.secret).digest('hex')+ '.png'
+      const oFilename = outFilenames[ind] + '-' + crypto.createHash('sha256').update(param.secret).digest('hex') + '.png'
       const op = path.join(OUT_DIR, oFilename)
       const payload = MigrationPayload.create({
         otpParameters: [{
