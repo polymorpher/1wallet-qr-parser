@@ -46,7 +46,7 @@ async function main () {
       .map(e => e.replace(/ /g, '-').toLowerCase())
     for (const [ind, param] of filteredParams.entries()) {
       const oFilename = outFilenames[ind] + '-' + crypto.createHash('sha256').update(param.secret).digest('hex') + '.png'
-      const otFilename = outFilenames[ind] + '-' + crypto.createHash('sha256').update(param.secret).digest('hex') + '.txt'
+      const otFilename = outFilenames[ind] + '-' + crypto.createHash('sha256').update(param.secret).digest('hex') + '.json'
       const op = path.join(OUT_DIR, oFilename)
       const otp = path.join(OUT_TEXT_DIR, otFilename)
       const payload = MigrationPayload.create({
